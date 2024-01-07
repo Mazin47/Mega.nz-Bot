@@ -59,13 +59,9 @@ async def to_up_cb(client: CypherClient, query: CallbackQuery):
     # weird workaround to add support for private mode
     conf = None
     if client.is_public:
-        udoc = await client.database.is_there(qusr, True)
-        if not udoc:
-            return await query.edit_message_text(
-                "`You must be logged in first to download this file 😑`"
-            )
+        
         if udoc:
-            conf = f"--username {client.cipher.decrypt(udoc['email']).decode()} --password {client.cipher.decrypt(udoc['password']).decode()}"
+          conf = f"--username {client.cipher.decrypt(udoc['email']).decode()} --password {client.cipher.decrypt(udoc['password']).decode()}"
 
     # Get message
     msg = await client.get_messages(qcid, _mid)
