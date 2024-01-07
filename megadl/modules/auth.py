@@ -1,3 +1,9 @@
+from pyrogram import filters
+from pyrogram.enums import ChatType
+from pyrogram.types import Message
+
+from megadl import CypherClient
+
 @CypherClient.on_message(filters.command("login"))
 @CypherClient.run_checks
 async def mega_logger(client: CypherClient, msg: Message):
