@@ -18,7 +18,7 @@ async def mega_logger(client: CypherClient, msg: Message):
         return await msg.reply("`You can only login in private chats for obivious reasons`")
     user_id = msg.chat.id
 
-    email = await client.ask(user_id, "`Enter your Mega.nz email:`")
+    email = await client.ask(user_id, "`Enter your😂 Mega.nz email:`")
     if not email:
         return await msg.reply("You` **must** `send your Mega.nz email in order to login")
     password = await client.ask(user_id, "`Enter your Mega.nz password:`")
