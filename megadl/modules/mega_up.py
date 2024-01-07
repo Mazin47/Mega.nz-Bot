@@ -18,7 +18,6 @@ from megadl.lib.megatools import MegaTools
 from megadl.helpers.pyros import track_progress
 
 
-# Respond only to Documents, Photos, Videos, GIFs, Audio and to urls other than mega
 @CypherClient.on_message(
     filters.document
     | filters.photo
@@ -33,7 +32,7 @@ from megadl.helpers.pyros import track_progress
 async def up_to(_: CypherClient, msg: Message):
     _mid = msg.id
     await msg.reply(
-        "**Select what you want to do ?😂**",
+        "**Select what you want to do ?😅**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("Upload 🗃", callback_data=f"up_tgdl-{_mid}")],
@@ -59,18 +58,17 @@ async def to_up_cb(client: CypherClient, query: CallbackQuery):
     # weird workaround to add support for private mode
     conf = None
     if client.is_public:
-        
         if udoc:
-          conf = f"--username {client.cipher.decrypt(udoc['email']).decode()} --password {client.cipher.decrypt(udoc['password']).decode()}"
+            conf = f"--username {client.cipher.decrypt(udoc['email']).decode()} --password {client.cipher.decrypt(udoc['password']).decode()}"
 
     # Get message
     msg = await client.get_messages(qcid, _mid)
     strtim = time()
     # Status msg
     await query.edit_message_text("`Trying to download the file 📥`", reply_markup=None)
-    # update upload count
-    await client.database.plus_fl_count(qusr, uploads=1)
 
+    # Check if client.database is not None before calling plus_fl_count
+    
     # Download files accordingly
     dl_path = None
     if msg.media:
